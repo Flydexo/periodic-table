@@ -1,10 +1,10 @@
-from tkinter import *
-from data import *
-from colors import *
+from tkinter import Button, Label, Frame, Tk
+from data import elements
+from colors import darker
 import urllib.request
 import io
 from PIL import Image, ImageTk
-import pyperclip
+from webbrowser import open_new
 
 root = Tk()
 root.title("Tableau Périodique")
@@ -103,16 +103,13 @@ def click(i):
     lastesty = z.winfo_y()+z.winfo_height()
     z = Label(mainframe, text="Source (click to copy): ", font="Helvetica 18",fg=white,bg=bg)
     z.place(x=24,y=lastesty+12)
-    l = z
-    z = Entry(mainframe, font="Helvetica 18",fg=white,bg=bg,width=len(atom["source"]))
-    z.insert(0, atom["source"])
-    z.place(x=280,y=lastesty+12)
-    z.bind('<Button-1>', lambda e,s=atom["source"],_l=l: copy(s, _l))
+    z = Label(mainframe, text="Source: "+atom["source"],font="Helvetica 18",fg="#34abeb",bg=bg,cursor="hand1")
+    z.place(x=24,y=lastesty+12)
+    z.bind('<Button-1>', lambda e,s=atom["source"]: openUrl(s))
 
 
-def copy(s, l):
-    pyperclip.copy(s)
-    l.config(text="Source (link copied): ")
+def openUrl(s):
+    open_new(s)
 
 def display():
     for i in range(len(elements)):
