@@ -3,7 +3,6 @@ from data import elements
 from colors import darker
 import urllib.request
 import io
-from PIL import Image, ImageTk
 from webbrowser import open_new
 
 root = Tk()
@@ -39,26 +38,6 @@ def click(i):
     name.place(x=24,y=72)
     symbol = Label(mainframe, text=atom["symbol"], font="Helvetica 24",fg=white,bg=bg)
     symbol.place(x=24+24*len(atom["name"]),y=72)
-    imglabel = Label(mainframe)
-    imglabel.place(x=mainframe.winfo_width()-224,y=124)
-    with urllib.request.urlopen(atom["image"]["url"]) as url:
-        raw_data  = url.read()
-        im = Image.open(io.BytesIO(raw_data))
-        im = im.resize((200, int(im.height / (im.width/200))))
-        image = ImageTk.PhotoImage(im)
-        imglabel['image'] = image
-        imglabel["image"]
-        images.append(image)
-    imglabel = Label(mainframe)
-    imglabel.place(x=mainframe.winfo_width()-224,y=348)
-    with urllib.request.urlopen(atom["bohr_model_image"]) as url:
-        raw_data  = url.read()
-        im = Image.open(io.BytesIO(raw_data))
-        im = im.resize((200, int(im.height / (im.width/200))))
-        image = ImageTk.PhotoImage(im)
-        imglabel['image'] = image
-        imglabel["image"]
-        images.append(image)
     summary = ""
     for i in range(int(len(atom["summary"]) / 80)+1):
         end = i*80+80
